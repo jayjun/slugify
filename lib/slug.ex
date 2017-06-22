@@ -8,7 +8,7 @@ defmodule Slug do
   The goal is to generate general purpose human and machine-readable slugs. So
   `-`, `.`, `_` and `~` characters are stripped from input even though they are
   "unreserved" characters for URLs (see
-  [RFC 3986][https://www.ietf.org/rfc/rfc3986.txt]). Having said that, any
+  [RFC 3986](https://www.ietf.org/rfc/rfc3986.txt)). Having said that, any
   character can be used as a separator, including the ones above.
   """
 
@@ -17,28 +17,28 @@ defmodule Slug do
 
   ## Options
 
-    * `:separator` - Replace whitespaces with this string. Leading, trailing or
+    * `separator` - Replace whitespaces with this string. Leading, trailing or
     repeated whitespaces are still trimmed. Defaults to `-`.
-    * `:lowercase` - Set to `false` if you wish to retain
+    * `lowercase` - Set to `false` if you wish to retain
     your uppercase letters. Defaults to `true`.
-    * `:ignore` - Pass in a string (or list of strings) of characters to ignore.
+    * `ignore` - Pass in a string (or list of strings) of characters to ignore.
 
   ## Examples
 
-    iex> Slug.slugify("Hello, World!")
-    "hello-world"
+      iex> Slug.slugify("Hello, World!")
+      "hello-world"
 
-    iex> Slug.slugify("Madam, I'm Adam", separator: "")
-    "madamimadam"
+      iex> Slug.slugify("Madam, I'm Adam", separator: "")
+      "madamimadam"
 
-    iex> Slug.slugify("StUdLy CaPs", lowercase: false)
-    "StUdLy-CaPs"
+      iex> Slug.slugify("StUdLy CaPs", lowercase: false)
+      "StUdLy-CaPs"
 
-    iex> Slug.slugify("你好，世界")
-    "nihaoshijie"
+      iex> Slug.slugify("你好，世界")
+      "nihaoshijie"
 
-    iex> Slug.slugify("你好，世界", ignore: ["你", "好"])
-    "你好shijie"
+      iex> Slug.slugify("你好，世界", ignore: ["你", "好"])
+      "你好shijie"
 
   """
   @spec slugify(String.t, Keyword.t) :: String.t | nil
