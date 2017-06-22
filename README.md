@@ -32,9 +32,13 @@ nil # Remember nil check if a valid slug is important!
 
 ## Options
 
-You can use any string as a separator, or pass `""` to have none.
+Whitespaces are replaced by separators (defaults to `-`), but you can use any
+string as a separator or pass `""` to have none.
 
 ```elixir
+Slug.slugify("  How are   you  ?  ")
+"how-are-you"
+
 Slug.slugify("1 2 3", separator: " != ")
 "1 != 2 != 3"
 

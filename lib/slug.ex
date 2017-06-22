@@ -60,6 +60,7 @@ defmodule Slug do
       string
       |> String.split(~r{[\s]}, trim: true)
       |> Enum.map(& transliterate(&1, ignored_codepoints))
+      |> Enum.filter(& &1 != "")
       |> Enum.join(separator)
 
     case separator do
