@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jayjun/slugify.svg?branch=master)](https://travis-ci.org/jayjun/slugify)
 
-Turn any string into a slug.
+Transforms any string into a slug.
 
 It works by transliterating any Unicode character to alphanumeric ones, and
 replaces whitespaces with hyphens.

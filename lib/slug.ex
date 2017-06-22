@@ -1,6 +1,6 @@
 defmodule Slug do
   @moduledoc """
-  Turns any string into a slug.
+  Transforms any string into a slug.
 
   It works by transliterating any Unicode character to alphanumeric ones, and
   replacing whitespaces with hyphens.
