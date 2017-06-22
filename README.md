@@ -1,5 +1,7 @@
 # Slugify
 
+[![Build Status](https://secure.travis-ci.org/jayjun/slugify.svg?branch=master "Build Status")][build-status]
+
 Turn any string into a slug.
 
 It works by transliterating any Unicode character to alphanumeric ones, and
