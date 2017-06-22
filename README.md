@@ -1,6 +1,6 @@
 # Slugify
 
-[![Build Status](https://secure.travis-ci.org/jayjun/slugify.svg?branch=master "Build Status")][build-status]
+[![Build Status](https://travis-ci.org/jayjun/slugify.svg?branch=master)](https://travis-ci.org/jayjun/slugify)
 
 Turn any string into a slug.
 
