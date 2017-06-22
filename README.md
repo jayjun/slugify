@@ -86,23 +86,32 @@ Don’t forget to update your dependencies.
 $ mix deps.get
 ```
 
+## Links
+
+* [Documentation][2]
+* [Hex][3]
+
 ## License
 
-Slugify is released under [MIT][2] license.
+Slugify is released under [MIT][4] license.
 
 ## Credits
 
-* Inspired by [Unidecode][3], [Transliteration][4] and [Slugger][5].
+* Inspired by [Unidecode][5], [Transliteration][6] and [Slugger][7].
 
-* Data ported from andyhu's excellent [Transliteration][4] package.
+* Data ported from andyhu's excellent [Transliteration][6] package.
 
 
 [1]: https://www.ietf.org/rfc/rfc3986.txt
 
-[2]: https://github.com/jayjun/slugify/blob/master/LICENSE
+[2]: https://hexdocs.pm/slugify/Slug.html
 
-[3]: http://search.cpan.org/~sburke/Text-Unidecode-1.30/lib/Text/Unidecode.pm
+[3]: https://hex.pm/packages/slugify
 
-[4]: https://github.com/andyhu/transliteration
+[4]: https://github.com/jayjun/slugify/blob/master/LICENSE
 
-[5]: https://github.com/h4cc/slugger
+[5]: http://search.cpan.org/~sburke/Text-Unidecode-1.30/lib/Text/Unidecode.pm
+
+[6]: https://github.com/andyhu/transliteration
+
+[7]: https://github.com/h4cc/slugger
