@@ -15,3 +15,5 @@ otp_release:
   - 18.1
   - 18.0
 sudo: false
+notifications:
+  email: false
