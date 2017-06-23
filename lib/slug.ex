@@ -2,14 +2,11 @@ defmodule Slug do
   @moduledoc """
   Transform strings in any language into slugs.
 
-  It works by transliterating any Unicode character to alphanumeric ones, and
-  replacing whitespaces with hyphens.
+  It works by transliterating Unicode characters into alphanumeric strings (e.g.
+  `字` to `zi`). All punctuation is stripped, but any character or string can be
+  used to join slugified words.
 
-  The goal is to generate general purpose human and machine-readable slugs. So
-  `-`, `.`, `_` and `~` characters are stripped from input even though they are
-  "unreserved" characters for URLs (see
-  [RFC 3986](https://www.ietf.org/rfc/rfc3986.txt)). Having said that, any
-  character can be used as a separator, including the ones above.
+  This package has no dependencies.
   """
 
   @doc """
@@ -21,6 +18,8 @@ defmodule Slug do
     repeated whitespaces are trimmed. Defaults to `-`.
     * `lowercase` - Set to `false` if you wish to retain capitalization.
     Defaults to `true`.
+    * `truncate` - Truncates slug at this character length, shortened to the
+    nearest word.
     * `ignore` - Pass in a string (or list of strings) of characters to ignore.
 
   ## Examples
@@ -34,8 +33,8 @@ defmodule Slug do
       iex> Slug.slugify("StUdLy CaPs", lowercase: false)
       "StUdLy-CaPs"
 
-      iex> Slug.slugify("你好，世界")
-      "nihaoshijie"
+      iex> Slug.slugify("Call me maybe", truncate: 10)
+      "call-me"
 
       iex> Slug.slugify("你好，世界", ignore: ["你", "好"])
       "你好shijie"
@@ -43,40 +42,82 @@ defmodule Slug do
   """
   @spec slugify(String.t, Keyword.t) :: String.t | nil
   def slugify(string, opts \\ []) do
-    separator =
-      opts
-      |> Keyword.get(:separator)
-      |> case do
-        separator when is_integer(separator) and separator >= 0 ->
-          <<separator::utf8>>
-        separator when is_binary(separator) ->
-          separator
-        _ ->
-          "-"
-      end
-
+    separator = get_separator(opts)
     lowercase? = Keyword.get(opts, :lowercase, true)
-
-    ignored_codepoints =
-      opts
-      |> Keyword.get(:ignore)
-      |> case do
-        characters when is_list(characters) ->
-          Enum.join(characters)
-        characters when is_binary(characters) ->
-          characters
-        _ ->
-          ""
-      end
-      |> normalize_to_codepoints()
+    truncate_length = get_truncate_length(opts)
+    ignored_codepoints = get_ignored_codepoints(opts)
 
     string
     |> String.split(~r{\s}, trim: true)
     |> Enum.map(& transliterate(&1, ignored_codepoints))
     |> Enum.filter(& &1 != "")
-    |> Enum.join(separator)
+    |> join(separator, truncate_length)
     |> lower_case(lowercase?)
     |> validate_slug()
+  end
+
+  def get_separator(opts) do
+    separator = Keyword.get(opts, :separator)
+
+    case separator do
+      separator when is_integer(separator) and separator >= 0 ->
+        <<separator::utf8>>
+      separator when is_binary(separator) ->
+        separator
+      _ ->
+        "-"
+    end
+  end
+
+  def get_truncate_length(opts) do
+    length = Keyword.get(opts, :truncate)
+
+    case length do
+      length when is_integer(length) and length <= 0 ->
+        0
+      length when is_integer(length) ->
+        length
+      _ ->
+        nil
+    end
+  end
+
+  defp get_ignored_codepoints(opts) do
+    characters_to_ignore = Keyword.get(opts, :ignore)
+
+    string = case characters_to_ignore do
+      characters when is_list(characters) ->
+        Enum.join(characters)
+      characters when is_binary(characters) ->
+        characters
+      _ ->
+        ""
+    end
+
+    normalize_to_codepoints(string)
+  end
+
+  defp join(words, separator, nil), do: Enum.join(words, separator)
+  defp join(words, separator, maximum_length) do
+    words
+    |> Enum.reduce_while({[], 0}, fn word, {result, length} ->
+      new_length = case length do
+        0 -> String.length(word)
+        _ -> length + String.length(separator) + String.length(word)
+      end
+
+      cond do
+        new_length > maximum_length ->
+          {:halt, {result, length}}
+        new_length == maximum_length ->
+          {:halt, {[word | result], new_length}}
+        true ->
+          {:cont, {[word | result], new_length}}
+      end
+    end)
+    |> elem(0)
+    |> Enum.reverse()
+    |> Enum.join(separator)
   end
 
   defp lower_case(string, false), do: string

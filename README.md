@@ -7,7 +7,7 @@ Transform strings in any language into slugs.
 
 It works by transliterating Unicode characters into alphanumeric strings (e.g.
 `字` to `zi`). All punctuation is stripped, but any character or string can be
-used to join words.
+used to join slugified words.
 
 This package has no dependencies.
 

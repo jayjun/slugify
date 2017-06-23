@@ -46,6 +46,15 @@ defmodule SlugTest do
     assert Slug.slugify("你好，世界", ignore: "好界") == "ni好shi界"
   end
 
+  test "truncate to nearest separator" do
+    assert Slug.slugify("It's a small world", truncate: -1) == nil
+    assert Slug.slugify("It's a small world", truncate: 0) == nil
+    assert Slug.slugify("It's a small world", truncate: 2) == nil
+    assert Slug.slugify("It's a small world", truncate: 5) == "its-a"
+    assert Slug.slugify("It's a small world", truncate: 7) == "its-a"
+    assert Slug.slugify("It's a small world", truncate: 20) == "its-a-small-world"
+  end
+
   test "arabic letters" do
     assert Slug.slugify("مرحبا بالعالم") == "mrhb-blaalm"
   end
