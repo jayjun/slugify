@@ -56,7 +56,7 @@ defmodule Slug do
     |> validate_slug()
   end
 
-  def get_separator(opts) do
+  defp get_separator(opts) do
     separator = Keyword.get(opts, :separator)
 
     case separator do
@@ -69,7 +69,7 @@ defmodule Slug do
     end
   end
 
-  def get_truncate_length(opts) do
+  defp get_truncate_length(opts) do
     length = Keyword.get(opts, :truncate)
 
     case length do
