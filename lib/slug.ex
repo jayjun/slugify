@@ -3,8 +3,8 @@ defmodule Slug do
   Transform strings in any language into slugs.
 
   It works by transliterating Unicode characters into alphanumeric strings (e.g.
-  `字` to `zi`). All punctuation is stripped, but any character or string can be
-  used to join slugified words.
+  `字` into `zi`). All punctuation is stripped and whitespace between words are
+  replaced by hyphens.
 
   This package has no dependencies.
   """

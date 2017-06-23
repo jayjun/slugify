@@ -6,8 +6,8 @@
 Transform strings in any language into slugs.
 
 It works by transliterating Unicode characters into alphanumeric strings (e.g.
-`字` to `zi`). All punctuation is stripped, but any character or string can be
-used to join slugified words.
+`字` into `zi`). All punctuation is stripped and whitespace between words are
+replaced by hyphens.
 
 This package has no dependencies.
 
@@ -34,7 +34,7 @@ Whitespaces are replaced by separators (defaults to `-`). Pass any codepoint or
 string to customize the separator, or pass `""` to have none.
 
 ```elixir
-Slug.slugify("  How are   you  ?  ")
+Slug.slugify("  How are   you?  ")
 "how-are-you"
 
 Slug.slugify("John Doe", separator: ?.)
@@ -54,8 +54,8 @@ Slug.slugify("StUdLy CaPs", lowercase: false)
 "StUdLy-CaPs"
 ```
 
-To ignore certain graphemes, pass a string (or a list of strings) of graphemes
-to `ignore`.
+To avoid transforming certain characters, pass a string (or a list of strings)
+of graphemes to `ignore`.
 
 ```elixir
 Slug.slugify("你好，世界", ignore: "你好")
