@@ -18,9 +18,9 @@ defmodule Slug do
   ## Options
 
     * `separator` - Replace whitespaces with this string. Leading, trailing or
-    repeated whitespaces are still trimmed. Defaults to `-`.
-    * `lowercase` - Set to `false` if you wish to retain
-    your uppercase letters. Defaults to `true`.
+    repeated whitespaces are trimmed. Defaults to `-`.
+    * `lowercase` - Set to `false` if you wish to retain capitalization.
+    Defaults to `true`.
     * `ignore` - Pass in a string (or list of strings) of characters to ignore.
 
   ## Examples
@@ -43,41 +43,47 @@ defmodule Slug do
   """
   @spec slugify(String.t, Keyword.t) :: String.t | nil
   def slugify(string, opts \\ []) do
-    separator = Keyword.get(opts, :separator, "-")
-    force_lowercase = Keyword.get(opts, :lowercase, true)
+    separator =
+      opts
+      |> Keyword.get(:separator)
+      |> case do
+        separator when is_integer(separator) and separator >= 0 ->
+          <<separator::utf8>>
+        separator when is_binary(separator) ->
+          separator
+        _ ->
+          "-"
+      end
+
+    lowercase? = Keyword.get(opts, :lowercase, true)
+
     ignored_codepoints =
       opts
-      |> Keyword.get(:ignore, "")
+      |> Keyword.get(:ignore)
       |> case do
         characters when is_list(characters) ->
           Enum.join(characters)
         characters when is_binary(characters) ->
           characters
+        _ ->
+          ""
       end
       |> normalize_to_codepoints()
 
-    result =
-      string
-      |> String.split(~r{[\s]}, trim: true)
-      |> Enum.map(& transliterate(&1, ignored_codepoints))
-      |> Enum.filter(& &1 != "")
-      |> Enum.join(separator)
-
-    case separator do
-      "" ->
-        lower_case(result, force_lowercase)
-      separator ->
-        case String.replace(result, separator, "") do
-          "" ->
-            nil
-          _ ->
-            lower_case(result, force_lowercase)
-        end
-    end
+    string
+    |> String.split(~r{\s}, trim: true)
+    |> Enum.map(& transliterate(&1, ignored_codepoints))
+    |> Enum.filter(& &1 != "")
+    |> Enum.join(separator)
+    |> lower_case(lowercase?)
+    |> validate_slug()
   end
 
   defp lower_case(string, false), do: string
   defp lower_case(string, true), do: String.downcase(string)
+
+  defp validate_slug(""), do: nil
+  defp validate_slug(string), do: string
 
   defp normalize_to_codepoints(string) do
     string
@@ -114,8 +120,7 @@ defmodule Slug do
   @replacements "lib/replacements.exs" |> Code.eval_file() |> elem(0)
   defp transliterate([codepoint | rest], acc, ignored_codepoints) do
     if codepoint in ignored_codepoints do
-      character = List.to_string([codepoint])
-      transliterate(rest, [character | acc], ignored_codepoints)
+      transliterate(rest, [<<codepoint::utf8>> | acc], ignored_codepoints)
     else
       case Map.get(@replacements, codepoint) do
         nil ->

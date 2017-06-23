@@ -1,16 +1,13 @@
 # Slugify
 
 [![Build Status](https://travis-ci.org/jayjun/slugify.svg?branch=master)](https://travis-ci.org/jayjun/slugify)
+[![Hex.pm](https://img.shields.io/hexpm/v/plug.svg)](https://hex.pm/packages/slugify)
 
 Transform strings in any language into slugs.
 
-It works by transliterating any Unicode character to alphanumeric ones, and
-replaces whitespaces with hyphens.
-
-The goal is to generate general purpose human and machine-readable slugs. So
-`-`, `.`, `_` and `~` characters are stripped from input even though they are
-"unreserved" characters for URLs (see [RFC 3986][1]). Having said that, any
-character can be used as a separator, including the ones above.
+It works by transliterating Unicode characters into alphanumeric strings (e.g.
+`字` to `zi`). All punctuation is stripped, but any character or string can be
+used to join words.
 
 This package has no dependencies.
 
@@ -23,24 +20,28 @@ Slug.slugify("Hello, World!")
 Slug.slugify("你好，世界")
 "nihaoshijie"
 
-Slug.slugify("さようなら")
-"sayounara"
+Slug.slugify("Wikipedia case", separator: ?_, lowercase: false)
+"Wikipedia_case"
 
+# Remember to check for nil if a valid slug is important!
 Slug.slugify("🙅‍")
-nil # Remember nil check if a valid slug is important!
+nil
 ```
 
 ## Options
 
-Whitespaces are replaced by separators (defaults to `-`), but you can use any
-string as a separator or pass `""` to have none.
+Whitespaces are replaced by separators (defaults to `-`). Pass any codepoint or
+string to customize the separator, or pass `""` to have none.
 
 ```elixir
 Slug.slugify("  How are   you  ?  ")
 "how-are-you"
 
-Slug.slugify("1 2 3", separator: " != ")
-"1 != 2 != 3"
+Slug.slugify("John Doe", separator: ?.)
+"john.doe"
+
+Slug.slugify("Wide open spaces", separator: "%20")
+"wide%20open%20spaces"
 
 Slug.slugify("Madam, I'm Adam", separator: "")
 "madamimadam"
@@ -53,8 +54,8 @@ Slug.slugify("StUdLy CaPs", lowercase: false)
 "StUdLy-CaPs"
 ```
 
-Specific graphemes can be ignored if you pass a string (or a list of strings)
-containing characters to ignore.
+To ignore certain graphemes, pass a string (or a list of strings) of graphemes
+to `ignore`.
 
 ```elixir
 Slug.slugify("你好，世界", ignore: "你好")

@@ -26,7 +26,7 @@ defmodule SlugTest do
     assert Slug.slugify(input) == nil
   end
 
-  test "alphanumeric characters stay uppercase with option" do
+  test "alphanumeric characters stay uppercase" do
     assert Slug.slugify(@alphanumerics, lowercase: false) == @alphanumerics
   end
 
@@ -35,12 +35,13 @@ defmodule SlugTest do
     assert Slug.slugify("  Hello,\t World!\n") == "hello-world"
   end
 
-  test "customize separator with any string" do
+  test "customize separator with any codepoint or string" do
+    assert Slug.slugify("Hello, World!", separator: ?_) == "hello_world"
     assert Slug.slugify("Hello, World!", separator: "") == "helloworld"
-    assert Slug.slugify("Hello, World!", separator: " != ") == "hello != world"
+    assert Slug.slugify("Hello, World!", separator: "%20") == "hello%20world"
   end
 
-  test "ignore certain characters with option" do
+  test "ignore certain characters" do
     assert Slug.slugify("你好，世界", ignore: ["好", "界"]) == "ni好shi界"
     assert Slug.slugify("你好，世界", ignore: "好界") == "ni好shi界"
   end
