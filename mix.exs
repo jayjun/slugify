@@ -5,7 +5,7 @@ defmodule Slug.Mixfile do
 
   def project do
     [app: :slugify,
-     version: "1.0.0",
+     version: "1.1.0",
      elixir: "~> 1.4",
      name: "Slugify",
      description: "Transform strings in any language to slugs for URLs, filenames or fun",
