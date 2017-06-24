@@ -1,7 +1,7 @@
 # Slugify
 
 [![Build Status](https://travis-ci.org/jayjun/slugify.svg?branch=master)](https://travis-ci.org/jayjun/slugify)
-[![Hex.pm](https://img.shields.io/hexpm/v/plug.svg)](https://hex.pm/packages/slugify)
+[![Hex.pm](https://img.shields.io/hexpm/v/slugify.svg)](https://hex.pm/packages/slugify)
 
 Transform strings in any language into slugs.
 
