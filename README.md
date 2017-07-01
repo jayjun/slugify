@@ -120,7 +120,7 @@ Slugify is released under [MIT][4] license.
 
 [3]: https://hex.pm/packages/slugify
 
-[4]: https://github.com/jayjun/slugify/blob/master/LICENSE
+[4]: https://github.com/jayjun/slugify/blob/master/LICENSE.md
 
 [5]: http://search.cpan.org/~sburke/Text-Unidecode-1.30/lib/Text/Unidecode.pm
 
