@@ -54,6 +54,17 @@ Slug.slugify("StUdLy CaPs", lowercase: false)
 "StUdLy-CaPs"
 ```
 
+Set `truncate` so slugs don‘t exceed a certain length. They are trimmed to the
+closest word, as delimited by separators.
+
+```elixir
+Slug.slugify("Call Me Maybe", truncate: 7)
+"call-me"
+
+Slug.slugify("Call Me Maybe", truncate: 10)
+"call-me"
+```
+
 To avoid transforming certain characters, pass a string (or a list of strings)
 of graphemes to `ignore`.
 
