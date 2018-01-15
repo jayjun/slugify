@@ -40,7 +40,7 @@ defmodule Slug do
       "你好shijie"
 
   """
-  @spec slugify(String.t, Keyword.t) :: String.t | nil
+  @spec slugify(String.t(), Keyword.t()) :: String.t() | nil
   def slugify(string, opts \\ []) do
     separator = get_separator(opts)
     lowercase? = Keyword.get(opts, :lowercase, true)
@@ -49,8 +49,8 @@ defmodule Slug do
 
     string
     |> String.split(~r{\s}, trim: true)
-    |> Enum.map(& transliterate(&1, ignored_codepoints))
-    |> Enum.filter(& &1 != "")
+    |> Enum.map(&transliterate(&1, ignored_codepoints))
+    |> Enum.filter(&(&1 != ""))
     |> join(separator, truncate_length)
     |> lower_case(lowercase?)
     |> validate_slug()
@@ -62,8 +62,10 @@ defmodule Slug do
     case separator do
       separator when is_integer(separator) and separator >= 0 ->
         <<separator::utf8>>
+
       separator when is_binary(separator) ->
         separator
+
       _ ->
         "-"
     end
@@ -75,8 +77,10 @@ defmodule Slug do
     case length do
       length when is_integer(length) and length <= 0 ->
         0
+
       length when is_integer(length) ->
         length
+
       _ ->
         nil
     end
@@ -85,32 +89,39 @@ defmodule Slug do
   defp get_ignored_codepoints(opts) do
     characters_to_ignore = Keyword.get(opts, :ignore)
 
-    string = case characters_to_ignore do
-      characters when is_list(characters) ->
-        Enum.join(characters)
-      characters when is_binary(characters) ->
-        characters
-      _ ->
-        ""
-    end
+    string =
+      case characters_to_ignore do
+        characters when is_list(characters) ->
+          Enum.join(characters)
+
+        characters when is_binary(characters) ->
+          characters
+
+        _ ->
+          ""
+      end
 
     normalize_to_codepoints(string)
   end
 
   defp join(words, separator, nil), do: Enum.join(words, separator)
+
   defp join(words, separator, maximum_length) do
     words
     |> Enum.reduce_while({[], 0}, fn word, {result, length} ->
-      new_length = case length do
-        0 -> String.length(word)
-        _ -> length + String.length(separator) + String.length(word)
-      end
+      new_length =
+        case length do
+          0 -> String.length(word)
+          _ -> length + String.length(separator) + String.length(word)
+        end
 
       cond do
         new_length > maximum_length ->
           {:halt, {result, length}}
+
         new_length == maximum_length ->
           {:halt, {[word | result], new_length}}
+
         true ->
           {:cont, {[word | result], new_length}}
       end
@@ -154,6 +165,7 @@ defmodule Slug do
       case Map.get(@replacements, codepoint) do
         nil ->
           transliterate(rest, acc, ignored_codepoints)
+
         replacement ->
           transliterate(rest, [replacement | acc], ignored_codepoints)
       end
