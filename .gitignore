@@ -21,3 +21,6 @@ erl_crash.dump
 
 # macOS
 .DS_Store
+
+# ElixirLS
+.elixir_ls
