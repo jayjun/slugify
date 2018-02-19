@@ -16,4 +16,4 @@ static ErlNifFunc nif_funcs[] = {
     {"do_slugify", 1, slugify_nif}
 };
 
-ERL_NIF_INIT(Elixir.Slug2, nif_funcs, NULL, NULL, NULL, NULL)
+ERL_NIF_INIT(Elixir.Slug, nif_funcs, NULL, NULL, NULL, NULL)

@@ -6,144 +6,144 @@ defmodule SlugTest do
                  |> List.to_string()
 
   test "alphanumeric characters to lowercase" do
-    assert Slug2.slugify(@alphanumerics) == String.downcase(@alphanumerics)
+    assert Slug.slugify(@alphanumerics) == String.downcase(@alphanumerics)
   end
 
   test "returns nil if input cannot be slugified" do
-    assert Slug2.slugify("🙅‍") == nil
+    assert Slug.slugify("🙅‍") == nil
   end
 
   test "non-alphanumeric ASCII characters are stripped" do
     ascii = Enum.into(0..0x7F, []) |> List.to_string()
-    assert Slug2.slugify(ascii) == String.downcase(@alphanumerics)
+    assert Slug.slugify(ascii) == String.downcase(@alphanumerics)
   end
 
   test "alphanumeric characters stay uppercase" do
-    assert Slug2.slugify(@alphanumerics, lowercase: false) == @alphanumerics
+    assert Slug.slugify(@alphanumerics, lowercase: false) == @alphanumerics
   end
 
   test "replace whitespaces and delimiters with a single separator" do
-    assert Slug2.slugify("Hello, World!") == "hello-world"
-    assert Slug2.slugify("  Hello,\t World!\n") == "hello-world"
+    assert Slug.slugify("Hello, World!") == "hello-world"
+    assert Slug.slugify("  Hello,\t World!\n") == "hello-world"
   end
 
   test "customize separator with any codepoint or string" do
-    assert Slug2.slugify("Hello, World!", separator: ?_) == "hello_world"
-    assert Slug2.slugify("Hello, World!", separator: "") == "helloworld"
-    assert Slug2.slugify("Hello, World!", separator: "%20") == "hello%20world"
+    assert Slug.slugify("Hello, World!", separator: ?_) == "hello_world"
+    assert Slug.slugify("Hello, World!", separator: "") == "helloworld"
+    assert Slug.slugify("Hello, World!", separator: "%20") == "hello%20world"
   end
 
   test "ignore certain characters" do
-    assert Slug2.slugify("你好，世界", ignore: ["好", "界"]) == "ni好shi界"
-    assert Slug2.slugify("你好，世界", ignore: "好界") == "ni好shi界"
+    assert Slug.slugify("你好，世界", ignore: ["好", "界"]) == "ni好shi界"
+    assert Slug.slugify("你好，世界", ignore: "好界") == "ni好shi界"
   end
 
   test "truncate to nearest separator" do
-    assert Slug2.slugify("It's a small world", truncate: -1) == nil
-    assert Slug2.slugify("It's a small world", truncate: 0) == nil
-    assert Slug2.slugify("It's a small world", truncate: 2) == nil
-    assert Slug2.slugify("It's a small world", truncate: 5) == "its-a"
-    assert Slug2.slugify("It's a small world", truncate: 7) == "its-a"
-    assert Slug2.slugify("It's a small world", truncate: 20) == "its-a-small-world"
+    assert Slug.slugify("It's a small world", truncate: -1) == nil
+    assert Slug.slugify("It's a small world", truncate: 0) == nil
+    assert Slug.slugify("It's a small world", truncate: 2) == nil
+    assert Slug.slugify("It's a small world", truncate: 5) == "its-a"
+    assert Slug.slugify("It's a small world", truncate: 7) == "its-a"
+    assert Slug.slugify("It's a small world", truncate: 20) == "its-a-small-world"
   end
 
   test "arabic letters" do
-    assert Slug2.slugify("مرحبا بالعالم") == "mrhba-balalm"
+    assert Slug.slugify("مرحبا بالعالم") == "mrhba-balalm"
   end
 
   # test "amharic letters" do
-  #   assert Slug2.slugify("ሰላም ልዑል") == "salaame-leule"
+  #   assert Slug.slugify("ሰላም ልዑል") == "salaame-leule"
   # end
 
   test "armenian letters" do
-    assert Slug2.slugify("Բարեւ աշխարհ") == "barew-asxarh"
+    assert Slug.slugify("Բարեւ աշխարհ") == "barew-asxarh"
   end
 
   test "bengali letters" do
-    assert Slug2.slugify("ওহে বিশ্ব") == "ohe-bisaba"
+    assert Slug.slugify("ওহে বিশ্ব") == "ohe-bisaba"
   end
 
   # test "burmese letters" do
-  #   assert Slug2.slugify("မင်္ဂလာပါကမ္ဘာလောက") == "mngglaapkmbhaaleaak"
+  #   assert Slug.slugify("မင်္ဂလာပါကမ္ဘာလောက") == "mngglaapkmbhaaleaak"
   # end
 
   test "chinese characters" do
-    assert Slug2.slugify("你好，世界") == "ni-hao-shi-jie"
+    assert Slug.slugify("你好，世界") == "ni-hao-shi-jie"
   end
 
   test "gajica letters" do
-    assert Slug2.slugify("ǅǈǋ") == "dzljnj"
+    assert Slug.slugify("ǅǈǋ") == "dzljnj"
   end
 
   test "gujarati letters" do
-    assert Slug2.slugify("હેલો, વિશ્વ") == "halo-visava"
+    assert Slug.slugify("હેલો, વિશ્વ") == "halo-visava"
   end
 
   test "greek letters" do
-    assert Slug2.slugify("Γεια σας, τον κόσμο") == "geia-sas-ton-kosmo"
+    assert Slug.slugify("Γεια σας, τον κόσμο") == "geia-sas-ton-kosmo"
   end
 
   test "hebrew letters" do
-    assert Slug2.slugify("שלום, עולם") == "slwm-wlm"
+    assert Slug.slugify("שלום, עולם") == "slwm-wlm"
   end
 
   test "hindi letters" do
-    assert Slug2.slugify("नमस्ते दुनिया") == "namasata-daniya"
+    assert Slug.slugify("नमस्ते दुनिया") == "namasata-daniya"
   end
 
   test "japanese characters" do
-    assert Slug2.slugify("こんにちは") == "kon-nichiha"
+    assert Slug.slugify("こんにちは") == "kon-nichiha"
   end
 
   test "kannada letters" do
-    assert Slug2.slugify("ಹಲೋ, ಪ್ರಪಂಚ") == "halo-parapanca"
+    assert Slug.slugify("ಹಲೋ, ಪ್ರಪಂಚ") == "halo-parapanca"
   end
 
   # test "khmer letters" do
-  #   assert Slug2.slugify("សួស្តី​ពិភពលោក") == "suastiibibhblook"
+  #   assert Slug.slugify("សួស្តី​ពិភពលោក") == "suastiibibhblook"
   # end
 
   test "korean characters" do
-    assert Slug2.slugify("안녕하세요, 세계") == "annyeonghaseyo-segye"
+    assert Slug.slugify("안녕하세요, 세계") == "annyeonghaseyo-segye"
   end
 
   # test "lao letters" do
-  #   assert Slug2.slugify("ສະ​ບາຍ​ດີ​ຊາວ​ໂລກ") == "sabaanydiisaawolk"
+  #   assert Slug.slugify("ສະ​ບາຍ​ດີ​ຊາວ​ໂລກ") == "sabaanydiisaawolk"
   # end
 
   test "malayalam letters" do
-    assert Slug2.slugify("ഹലോ വേൾഡ്") == "halea-ve-da"
+    assert Slug.slugify("ഹലോ വേൾഡ്") == "halea-ve-da"
   end
 
   test "punjabi letters" do
-    assert Slug2.slugify("ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਦੁਨਿਆ") == "sati-sari-akala-dani-a"
+    assert Slug.slugify("ਸਤਿ ਸ੍ਰੀ ਅਕਾਲ ਦੁਨਿਆ") == "sati-sari-akala-dani-a"
   end
 
   test "russian letters" do
-    assert Slug2.slugify("Привет мир") == "privet-mir"
+    assert Slug.slugify("Привет мир") == "privet-mir"
   end
 
   # test "sinhalese letters" do
-  #   assert Slug2.slugify("හෙලෝ වර්ල්ඩ්") == "heleaa-vrldd"
+  #   assert Slug.slugify("හෙලෝ වර්ල්ඩ්") == "heleaa-vrldd"
   # end
 
   test "tamil letters" do
-    assert Slug2.slugify("வணக்கம், உலகம்") == "vanakakama-ulakama"
+    assert Slug.slugify("வணக்கம், உலகம்") == "vanakakama-ulakama"
   end
 
   test "telugu letters" do
-    assert Slug2.slugify("హలో, ప్రపంచం") == "hala-parapancam"
+    assert Slug.slugify("హలో, ప్రపంచం") == "hala-parapancam"
   end
 
   test "thai letters" do
-    assert Slug2.slugify("สวัสดีชาวโลก") == "sw-sd-chaw-lok"
+    assert Slug.slugify("สวัสดีชาวโลก") == "sw-sd-chaw-lok"
   end
 
   test "vietnamese letters" do
-    assert Slug2.slugify("Chào thế giới") == "chao-the-gioi"
+    assert Slug.slugify("Chào thế giới") == "chao-the-gioi"
   end
 
   test "yiddish letters" do
-    assert Slug2.slugify("העלא וועלט") == "h-l-ww-lt"
+    assert Slug.slugify("העלא וועלט") == "h-l-ww-lt"
   end
 end

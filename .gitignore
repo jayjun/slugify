@@ -25,5 +25,5 @@ erl_crash.dump
 # ElixirLS
 .elixir_ls
 
-# nif
-/icu/slug_nif.so
+# priv
+/priv
