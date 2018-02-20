@@ -12,6 +12,7 @@ defmodule Slug.MixProject do
       description: "Transform strings in any language to slugs for URLs, filenames or fun",
       deps: deps(),
       package: package(),
+      compilers: [:elixir_make] ++ Mix.compilers,
       source_url: @github_url
     ]
   end
@@ -22,6 +23,7 @@ defmodule Slug.MixProject do
 
   defp deps do
     [
+      {:elixir_make, "~> 0.4", runtime: false},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.18", only: :dev, runtime: false}
     ]

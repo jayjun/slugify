@@ -24,6 +24,3 @@ erl_crash.dump
 
 # ElixirLS
 .elixir_ls
-
-# priv
-/priv
