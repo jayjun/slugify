@@ -27,9 +27,9 @@ defmodule Slug do
       iex> Slug.slugify("Call me maybe", truncate: 10)
       "call-me"
       iex> Slug.slugify("你好，世界", ignore: ["你", "好"])
-      "你好shijie"
+      "你好shi-jie"
   """
-  
+
   @on_load :init
 
   @alphanumerics (Enum.into(?0..?9, []) ++ Enum.into(?A..?Z, []) ++ Enum.into(?a..?z, []))
@@ -57,7 +57,6 @@ defmodule Slug do
 
     ll1 = Enum.reverse([Enum.reverse(l3) | l1]) |> Enum.map(fn x -> to_string([x]) end)
     ll2 = Enum.reverse([[] | l2]) |> Enum.map(fn x -> to_string([x]) end)
-
 
     Enum.map(ll1, fn s ->
       cond do
