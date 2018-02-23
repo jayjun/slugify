@@ -1,0 +1,8 @@
+run.config:
+  engine: elixir
+  engine.config:
+    runtime: elixir-1.6.1
+    erlang_runtime: erlang-20.2
+  extra_packages:
+    - pkg-config
+    - icu

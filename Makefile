@@ -26,6 +26,6 @@ $(LIB_NAME): $(NIF_SRC)
 	$(CXX) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 clean:
-	rm -f $(LIB_NAME)
+	rm -f priv
 
 .PHONY: all clean
