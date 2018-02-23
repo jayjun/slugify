@@ -1,4 +1,4 @@
-CFLAGS += -g -O3 -Wall --std=c++11
+CFLAGS += --std=c++11
 
 ERLANG_PATH = $(shell erl -eval 'io:format("~s", [lists:concat([code:root_dir(), "/erts-", erlang:system_info(version), "/include"])])' -s init stop -noshell)
 CFLAGS += -I$(ERLANG_PATH)
@@ -23,7 +23,7 @@ all: $(LIB_NAME)
 
 $(LIB_NAME): $(NIF_SRC)
 	mkdir -p priv
-	$(CXX) -o $@ $^ $(CFLAGS) $(LDFLAGS) 
+	$(CXX) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 clean:
 	rm -f $(LIB_NAME)
