@@ -1,4 +1,4 @@
-CFLAGS = --std=c++11 `pkg-config --libs --cflags icu-uc icu-io`
+CFLAGS += -g -O3 -Wall --std=c++11
 
 ERLANG_PATH = $(shell erl -eval 'io:format("~s", [lists:concat([code:root_dir(), "/erts-", erlang:system_info(version), "/include"])])' -s init stop -noshell)
 CFLAGS += -I$(ERLANG_PATH)
@@ -12,6 +12,9 @@ ifneq ($(OS),Windows_NT)
 	endif
 endif
 
+LDFLAGS += -shared
+LDFLAGS += `pkg-config --libs --cflags icu-uc icu-io`
+
 NIF_SRC=\
 	c_src/slug_nif.c\
 	c_src/slug.c
@@ -20,7 +23,7 @@ all: $(LIB_NAME)
 
 $(LIB_NAME): $(NIF_SRC)
 	mkdir -p priv
-	g++ $(CFLAGS) -shared $(LDFLAGS) $^ -o $@
+	$(CXX) -o $@ $^ $(CFLAGS) $(LDFLAGS) 
 
 clean:
 	rm -f $(LIB_NAME)
