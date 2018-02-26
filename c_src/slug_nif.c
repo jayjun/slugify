@@ -1,6 +1,7 @@
 #include <erl_nif.h>
+#include <string>
 
-extern const char* do_slugify(char* x);
+extern std::string do_slugify(char* x);
 
 static ERL_NIF_TERM slugify_nif(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
@@ -8,8 +9,8 @@ static ERL_NIF_TERM slugify_nif(ErlNifEnv* env, int argc, const ERL_NIF_TERM arg
     if (!enif_get_string(env, argv[0], x, 100, ERL_NIF_LATIN1)) {
 	return enif_make_badarg(env);
     }
-    const char* ret = do_slugify(x);
-    return enif_make_string(env, ret, ERL_NIF_LATIN1);
+    std::string s = do_slugify(x);
+    return enif_make_string(env, const_cast<char*>(s.c_str()), ERL_NIF_LATIN1);
 }
 
 static ErlNifFunc nif_funcs[] = {

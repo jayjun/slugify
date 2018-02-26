@@ -52,7 +52,7 @@ std::string base64_decode(std::string const& encoded_string) {
   return ret;
 }
 
-const char* do_slugify(char* s){
+std::string do_slugify(char* s){
   std::string ss;
   std::string s1(s);
   std::string s2 = base64_decode(s1);
@@ -63,6 +63,5 @@ const char* do_slugify(char* s){
   Transliterator *latin_english = Transliterator::createInstance("Latin-ASCII", UTRANS_FORWARD, status);
   latin_english->transliterate(str);
   str.toUTF8String(ss);
-  const char *c = const_cast<char*>(ss.c_str());
-  return c;
+  return ss;
 }
