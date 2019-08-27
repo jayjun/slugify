@@ -2,10 +2,7 @@ defmodule SlugTest do
   use ExUnit.Case
   doctest Slug
 
-  @alphanumerics Enum.into(?A..?Z, []) ++
-                 Enum.into(?a..?z, []) ++
-                 Enum.into(?0..?9, [])
-                 |> List.to_string()
+  @alphanumerics Enum.concat([?A..?Z, ?a..?z, ?0..?9]) |> List.to_string()
 
   test "alphanumeric characters to lowercase" do
     assert Slug.slugify(@alphanumerics) == String.downcase(@alphanumerics)
@@ -16,13 +13,7 @@ defmodule SlugTest do
   end
 
   test "non-alphanumeric ASCII characters are stripped" do
-    input =
-      Enum.into(?!..?/, []) ++
-      Enum.into(?:..?@, []) ++
-      Enum.into(?[..?`, []) ++
-      Enum.into(?{..?~, [])
-      |> List.to_string()
-
+    input = Enum.concat([?!..?/, ?:..?@, ?[..?`, ?{..?~]) |> List.to_string()
     assert Slug.slugify(input) == nil
   end
 
