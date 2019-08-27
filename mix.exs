@@ -1,19 +1,25 @@
 defmodule Slug.Mixfile do
   use Mix.Project
 
-  @github_url "https://github.com/jayjun/slugify"
+  @version "1.2.0"
+  @repo_url "https://github.com/jayjun/slugify"
 
   def project do
     [
       app: :slugify,
-      version: "1.1.0",
+      version: @version,
       elixir: "~> 1.4",
       name: "Slugify",
       description: "Transform strings from any language to slugs for URLs, filenames or fun",
       deps: deps(),
       package: package(),
-      source_url: @github_url,
-      docs: [main: "Slug", api_reference: false, extra_section: []]
+      docs: [
+        source_ref: @version,
+        source_url: @repo_url,
+        main: "Slug",
+        api_reference: false,
+        extra_section: []
+      ]
     ]
   end
 
@@ -30,6 +36,11 @@ defmodule Slug.Mixfile do
   end
 
   defp package do
-    [maintainers: ["Tan Jay Jun"], licenses: ["MIT"], links: %{"GitHub" => @github_url}]
+    [
+      files: ["lib/slug.ex", "priv", "mix.exs", "README.md"],
+      maintainers: ["Tan Jay Jun"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => @repo_url}
+    ]
   end
 end
