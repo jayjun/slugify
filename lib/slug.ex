@@ -45,11 +45,13 @@ defmodule Slug do
     lowercase? = Keyword.get(opts, :lowercase, true)
     truncate_length = get_truncate_length(opts)
     ignored_codepoints = to_charlist(separator) ++ get_ignored_codepoints(opts)
-    regex = "[" <> Regex.escape(separator) <> "\\s]"
+    regex = "[" <> Regex.escape(separator) <> "[:space:][:punct:]]"
 
     string
     |> String.graphemes()
     |> Enum.map_join(&transliterate(&1, ignored_codepoints))
+    |> String.replace("'", "")
+    |> String.replace("`", "")
     |> String.split(Regex.compile!(regex, [:unicode]), trim: true)
     |> Enum.filter(&(&1 != ""))
     |> join(separator, truncate_length)
