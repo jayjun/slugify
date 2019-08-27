@@ -9,10 +9,11 @@ defmodule Slug.Mixfile do
       version: "1.1.0",
       elixir: "~> 1.4",
       name: "Slugify",
-      description: "Transform strings in any language to slugs for URLs, filenames or fun",
+      description: "Transform strings from any language to slugs for URLs, filenames or fun",
       deps: deps(),
       package: package(),
-      source_url: @github_url
+      source_url: @github_url,
+      docs: [main: "Slug", api_reference: false, extra_section: []]
     ]
   end
 

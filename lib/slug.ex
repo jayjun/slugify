@@ -1,26 +1,24 @@
 defmodule Slug do
   @moduledoc """
-  Transform strings in any language into slugs.
+  Transform strings from any language into slugs.
 
   It works by transliterating Unicode characters into alphanumeric strings (e.g.
   `字` into `zi`). All punctuation is stripped and whitespace between words are
   replaced by hyphens.
-
-  This package has no dependencies.
   """
 
   @doc """
-  Returns `string` as a slug or nil if it failed.
+  Returns `string` as a slug or `nil` if it failed.
 
   ## Options
 
-    * `separator` - Replace whitespaces with this string. Leading, trailing or
+    * `:separator` - Replace whitespaces with this string. Leading, trailing or
     repeated whitespaces are trimmed. Defaults to `-`.
-    * `lowercase` - Set to `false` if you wish to retain capitalization.
+    * `:lowercase` - Set to `false` if you wish to retain capitalization.
     Defaults to `true`.
-    * `truncate` - Truncates slug at this character length, shortened to the
+    * `:truncate` - Truncates slug at this character length, shortened to the
     nearest word.
-    * `ignore` - Pass in a string (or list of strings) of characters to ignore.
+    * `:ignore` - Pass in a string (or list of strings) of characters to ignore.
 
   ## Examples
 
@@ -40,6 +38,7 @@ defmodule Slug do
       "你好shijie"
 
   """
+  @doc since: "1.0.0"
   @spec slugify(String.t(), Keyword.t()) :: String.t() | nil
   def slugify(string, opts \\ []) do
     separator = get_separator(opts)
