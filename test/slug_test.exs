@@ -32,6 +32,12 @@ defmodule SlugTest do
     assert Slug.slugify("Hello, World!", separator: "%20") == "hello%20world"
   end
 
+  test "ignore separator characters" do
+    assert Slug.slugify("hello-world") == "hello-world"
+    assert Slug.slugify("--Hello--World--") == "hello-world"
+    assert Slug.slugify("__HELLO__WORLD__", separator: ?_) == "hello_world"
+  end
+
   test "ignore certain characters" do
     assert Slug.slugify("你好，世界", ignore: ["好", "界"]) == "ni好shi界"
     assert Slug.slugify("你好，世界", ignore: "好界") == "ni好shi界"
