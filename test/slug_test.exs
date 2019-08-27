@@ -39,8 +39,8 @@ defmodule SlugTest do
   end
 
   test "ignore certain characters" do
-    assert Slug.slugify("你好，世界", ignore: ["好", "界"]) == "ni好shi界"
-    assert Slug.slugify("你好，世界", ignore: "好界") == "ni好shi界"
+    assert Slug.slugify("你好，世界", ignore: ["好", "界"]) == "ni-好-shi-界"
+    assert Slug.slugify("你好，世界", ignore: "好界") == "ni-好-shi-界"
   end
 
   test "truncate to nearest separator" do
@@ -73,7 +73,7 @@ defmodule SlugTest do
   end
 
   test "chinese characters" do
-    assert Slug.slugify("你好，世界") == "nihaoshijie"
+    assert Slug.slugify("你好，世界") == "ni-hao-shi-jie"
   end
 
   test "gujarati letters" do
@@ -101,7 +101,7 @@ defmodule SlugTest do
   end
 
   test "khmer letters" do
-    assert Slug.slugify("សួស្តី​ពិភពលោក") == "suastiibibhblook"
+    assert Slug.slugify("សួស្តី​ពិភពលោក") == "suastii-bibhblook"
   end
 
   test "korean characters" do
@@ -109,7 +109,7 @@ defmodule SlugTest do
   end
 
   test "lao letters" do
-    assert Slug.slugify("ສະ​ບາຍ​ດີ​ຊາວ​ໂລກ") == "sabaanydiisaawolk"
+    assert Slug.slugify("ສະ​ບາຍ​ດີ​ຊາວ​ໂລກ") == "sa-baany-dii-saaw-olk"
   end
 
   test "malayalam letters" do

@@ -23,6 +23,7 @@ defmodule Slug.Mixfile do
 
   defp deps do
     [
+      {:jason, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.21", only: :dev, runtime: false}
     ]

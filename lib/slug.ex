@@ -35,7 +35,7 @@ defmodule Slug do
       "call-me"
 
       iex> Slug.slugify("你好，世界", ignore: ["你", "好"])
-      "你好shijie"
+      "你好-shi-jie"
 
   """
   @doc since: "1.0.0"
@@ -48,8 +48,9 @@ defmodule Slug do
     regex = "[" <> Regex.escape(separator) <> "\\s]"
 
     string
-    |> String.split(Regex.compile!(regex), trim: true)
-    |> Enum.map(&transliterate(&1, ignored_codepoints))
+    |> String.graphemes()
+    |> Enum.map_join(&transliterate(&1, ignored_codepoints))
+    |> String.split(Regex.compile!(regex, [:unicode]), trim: true)
     |> Enum.filter(&(&1 != ""))
     |> join(separator, truncate_length)
     |> lower_case(lowercase?)
@@ -163,7 +164,9 @@ defmodule Slug do
     transliterate(rest, [<<codepoint>> | acc], ignored_codepoints)
   end
 
-  @replacements "lib/replacements.exs" |> Code.eval_file() |> elem(0)
+  @replacements Path.join(:code.priv_dir(:slugify), "data.etf")
+                |> File.read!()
+                |> :erlang.binary_to_term()
   defp transliterate([codepoint | rest], acc, ignored_codepoints) do
     if codepoint in ignored_codepoints do
       transliterate(rest, [<<codepoint::utf8>> | acc], ignored_codepoints)
