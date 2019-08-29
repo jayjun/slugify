@@ -8,7 +8,7 @@ defmodule Slug.Mixfile do
     [
       app: :slugify,
       version: @version,
-      elixir: "~> 1.4",
+      elixir: "~> 1.7",
       name: "Slugify",
       description: "Transform strings from any language to slugs for URLs, filenames or fun",
       deps: deps(),
