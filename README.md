@@ -1,6 +1,6 @@
 # Slugify
 
-[![Build Status](https://travis-ci.org/jayjun/slugify.svg?branch=master)](https://travis-ci.org/jayjun/slugify)
+[![Build Status](https://travis-ci.org/jayjun/slugify.svg)](https://travis-ci.org/jayjun/slugify)
 [![Hex.pm](https://img.shields.io/hexpm/v/slugify.svg)](https://hex.pm/packages/slugify)
 
 Transform strings from any language into slugs.
@@ -88,7 +88,9 @@ Add `slugify` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:slugify, "~> 1.1"}]
+  [
+    {:slugify, "~> 1.2"}
+  ]
 end
 ```
 
