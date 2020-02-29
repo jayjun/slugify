@@ -89,7 +89,7 @@ Add `slugify` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:slugify, "~> 1.2"}
+    {:slugify, "~> 1.3"}
   ]
 end
 ```
