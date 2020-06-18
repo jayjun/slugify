@@ -43,6 +43,11 @@ defmodule SlugTest do
     assert Slug.slugify("你好，世界", ignore: "好界") == "ni-好-shi-界"
   end
 
+  test "ignore punctuation" do
+    assert Slug.slugify("test,is a.test", ignore: [",", "."]) == "test,is-a.test"
+    assert Slug.slugify("test,is a.test", ignore: ",") == "test,is-a-test"
+  end
+
   test "truncate to nearest separator" do
     assert Slug.slugify("It's a small world", truncate: -1) == nil
     assert Slug.slugify("It's a small world", truncate: 0) == nil
