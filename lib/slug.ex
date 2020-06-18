@@ -7,6 +7,8 @@ defmodule Slug do
   replaced by hyphens.
   """
 
+  @punctuation ~c"!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
   @doc """
   Returns `string` as a slug or `nil` if it failed.
 
@@ -45,7 +47,13 @@ defmodule Slug do
     lowercase? = Keyword.get(opts, :lowercase, true)
     truncate_length = get_truncate_length(opts)
     ignored_codepoints = to_charlist(separator) ++ get_ignored_codepoints(opts)
-    regex = "[" <> Regex.escape(separator) <> "[:space:][:punct:]]"
+
+    regex_punctuation =
+      @punctuation
+      |> Enum.filter(fn c -> c not in ignored_codepoints end)
+      |> to_string()
+
+    regex = "[" <> Regex.escape(separator) <> Regex.escape(regex_punctuation) <> "[:space:]]"
 
     string
     |> String.graphemes()
