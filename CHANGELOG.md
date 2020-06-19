@@ -1,5 +1,7 @@
 # Changelog
 
+## 1.3.1 (19.06.2020)
+
 ### Fixes
 
 - Support punctuation in `:ignore` option ([#10](https://github.com/jayjun/slugify/pull/10))
