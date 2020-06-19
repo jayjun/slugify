@@ -1,6 +1,6 @@
 # Slugify
 
-[![Build Status](https://travis-ci.org/jayjun/slugify.svg)](https://travis-ci.org/jayjun/slugify)
+![](https://github.com/jayjun/slugify/workflows/CI/badge.svg)
 [![Hex.pm](https://img.shields.io/hexpm/v/slugify.svg)](https://hex.pm/packages/slugify)
 
 Transform strings from any language into slugs.
