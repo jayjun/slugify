@@ -105,14 +105,12 @@ Slugify is released under [MIT][4] license.
 
 ## Credits
 
-- Inspired by [Unidecode][5], [Transliteration][6] and [Slugger][7].
-
-- Data ported from andyhu's excellent [Transliteration][6] package.
+Inspired by [Unidecode][5], [Transliteration][6] and [Slugger][7]. Data from [dzcpy/transliteration][6].
 
 [1]: https://www.ietf.org/rfc/rfc3986.txt
 [2]: https://hexdocs.pm/slugify/Slug.html
 [3]: https://hex.pm/packages/slugify
 [4]: https://github.com/jayjun/slugify/blob/master/LICENSE.md
 [5]: http://search.cpan.org/~sburke/Text-Unidecode-1.30/lib/Text/Unidecode.pm
-[6]: https://github.com/andyhu/transliteration
+[6]: https://github.com/dzcpy/transliteration
 [7]: https://github.com/h4cc/slugger
