@@ -29,7 +29,7 @@ defmodule Slug.Mixfile do
 
   defp deps do
     [
-      {:jason, "~> 1.0", only: [:dev, :test]},
+      {:jason, "~> 1.0", only: [:dev, :test, :docs]},
       {:ex_doc, "~> 0.22", only: :docs}
     ]
   end
