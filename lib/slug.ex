@@ -150,7 +150,7 @@ defmodule Slug do
 
   defp normalize_to_codepoints(string) do
     string
-    |> :unicode.characters_to_nfc_binary()
+    |> :unicode.characters_to_nfd_binary()
     |> String.to_charlist()
   end
 
