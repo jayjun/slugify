@@ -11,7 +11,7 @@ defmodule SlugTest do
   test "returns nil if input cannot be slugified" do
     assert Slug.slugify("🙅‍") == nil
   end
-
+  
   test "non-alphanumeric ASCII characters are stripped" do
     input = Enum.concat([?!..?/, ?:..?@, ?[..?`, ?{..?~]) |> List.to_string()
     assert Slug.slugify(input) == nil
@@ -147,6 +147,7 @@ defmodule SlugTest do
 
   test "vietnamese letters" do
     assert Slug.slugify("Chào thế giới") == "chao-the-gioi"
+    assert Slug.slugify("Ý nghĩa") == "y-nghia"
   end
 
   test "yiddish letters" do
