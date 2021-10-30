@@ -147,6 +147,7 @@ defmodule SlugTest do
 
   test "vietnamese letters" do
     assert Slug.slugify("Chào thế giới") == "chao-the-gioi"
+    assert Slug.slugify("Ý nghĩa") == "y-nghia"
   end
 
   test "yiddish letters" do
