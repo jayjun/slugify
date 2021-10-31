@@ -1,7 +1,11 @@
 # Slugify
 
-![](https://github.com/jayjun/slugify/workflows/CI/badge.svg)
-[![Hex.pm](https://img.shields.io/hexpm/v/slugify.svg)](https://hex.pm/packages/slugify)
+[![CI](https://github.com/jayjun/slugify/actions/workflows/main.yml/badge.svg)](https://github.com/jayjun/slugify/actions/workflows/main.yml)
+[![Module Version](https://img.shields.io/hexpm/v/slugify.svg)](https://hex.pm/packages/slugify)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/slugify/)
+[![Total Download](https://img.shields.io/hexpm/dt/slugify.svg)](https://hex.pm/packages/slugify)
+[![License](https://img.shields.io/hexpm/l/slugify.svg)](https://github.com/jayjun/slugify/blob/master/LICENSE)
+[![Last Updated](https://img.shields.io/github/last-commit/jayjun/slugify.svg)](https://github.com/jayjun/slugify/commits/master)
 
 Transform strings from any language into slugs.
 
@@ -84,7 +88,7 @@ pinyin.
 
 ## Installation
 
-Add `slugify` to your list of dependencies in `mix.exs`:
+Add `:slugify` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -101,16 +105,17 @@ end
 
 ## License
 
-Slugify is released under [MIT][4] license.
+Copyright (c) 2017 Tan Jay Jun.
+
+Slugify is released under [MIT](./LICENSE.md) license.
 
 ## Credits
 
-Inspired by [Unidecode][5], [Transliteration][6] and [Slugger][7]. Data from [dzcpy/transliteration][6].
+Inspired by [Unidecode][4], [Transliteration][5] and [Slugger][6]. Data from [dzcpy/transliteration][6].
 
 [1]: https://www.ietf.org/rfc/rfc3986.txt
-[2]: https://hexdocs.pm/slugify/Slug.html
+[2]: https://hexdocs.pm/slugify
 [3]: https://hex.pm/packages/slugify
-[4]: https://github.com/jayjun/slugify/blob/master/LICENSE.md
-[5]: http://search.cpan.org/~sburke/Text-Unidecode-1.30/lib/Text/Unidecode.pm
-[6]: https://github.com/dzcpy/transliteration
-[7]: https://github.com/h4cc/slugger
+[4]: http://search.cpan.org/~sburke/Text-Unidecode-1.30/lib/Text/Unidecode.pm
+[5]: https://github.com/dzcpy/transliteration
+[6]: https://github.com/h4cc/slugger

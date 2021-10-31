@@ -10,16 +10,10 @@ defmodule Slug.Mixfile do
       version: @version,
       elixir: "~> 1.8",
       name: "Slugify",
-      description: "Transform strings from any language to slugs for URLs, filenames or fun",
       deps: deps(),
       package: package(),
-      docs: [
-        source_ref: @version,
-        source_url: @repo_url,
-        main: "Slug",
-        api_reference: false,
-        extra_section: []
-      ]
+      docs: docs(),
+      preferred_cli_env: [docs: :docs]
     ]
   end
 
@@ -30,16 +24,31 @@ defmodule Slug.Mixfile do
   defp deps do
     [
       {:jason, "~> 1.0", only: [:dev, :test, :docs]},
-      {:ex_doc, "~> 0.22", only: :docs}
+      {:ex_doc, ">= 0.0.0", only: :docs, runtime: false}
     ]
   end
 
   defp package do
     [
-      files: ["lib/slug.ex", "priv", "mix.exs", "README.md"],
+      description: "Transform strings from any language into slugs.",
+      files: ["lib/slug.ex", "priv", "mix.exs", "README.md", "CHANGELOG.md", "LICENSE.md"],
       maintainers: ["Tan Jay Jun"],
       licenses: ["MIT"],
-      links: %{"GitHub" => @repo_url}
+      links: %{
+        "Changelog" => "https://hexdocs.pm/slugify/changelog.html",
+        "GitHub" => @repo_url
+      }
+    ]
+  end
+
+  defp docs do
+    [
+      extras: ["CHANGELOG.md", {:"LICENSE.md", [title: "License"]}, "README.md"],
+      source_ref: @version,
+      source_url: @repo_url,
+      main: "readme",
+      formatters: ["html"],
+      api_reference: false
     ]
   end
 end
